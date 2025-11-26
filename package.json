@@ -9,6 +9,10 @@
     "dev:all": "concurrently -n shell,accounts,reporting \"pnpm dev:shell\" \"pnpm dev:accounts\" \"pnpm dev:reporting\""
   },
   "devDependencies": {
+    "@originjs/vite-plugin-federation": "^1.4.1",
     "concurrently": "^9.0.0"
+  },
+  "dependencies": {
+    "react-router-dom": "^7.9.6"
   }
 }
