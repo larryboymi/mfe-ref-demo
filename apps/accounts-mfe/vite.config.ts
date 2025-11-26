@@ -11,17 +11,17 @@ export default defineConfig({
       exposes: {
         './AccountsSummary': './src/widgets/AccountsSummary.tsx'
       },
-      shared: ['react', 'react-dom', '@demo/ui', '@demo/types']
+      shared: ['react', 'react-dom', '@demo/ui']
     })
   ],
   resolve: {
     alias: {
-      '@demo/ui': '../../packages/ui/src',
-      '@demo/types': '../../packages/types/src'
+      '@demo/ui': '../../packages/ui',
+      '@demo/types': '../../packages/types'
     }
   },
   server: {
-    port: 5001
+    port: 3001
   },
   build: {
     target: 'esnext',

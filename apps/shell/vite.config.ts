@@ -8,20 +8,20 @@ export default defineConfig({
     federation({
       name: 'shell',
       remotes: {
-        accounts: 'http://localhost:5001/assets/remoteEntry.js',
-        reporting: 'http://localhost:5002/assets/remoteEntry.js',
+        accounts: 'http://localhost:3001/assets/remoteEntry.js',
+        reporting: 'http://localhost:3002/assets/remoteEntry.js',
       },
-      shared: ['react', 'react-dom', 'react-router-dom', '@demo/ui', '@demo/types']
+      shared: ['react', 'react-dom', 'react-router-dom', '@demo/ui']
     })
   ],
   resolve: {
     alias: {
-      '@demo/ui': '../../packages/ui/src',
-      '@demo/types': '../../packages/types/src'
+      '@demo/ui': '../../packages/ui',
+      '@demo/types': '../../packages/types'
     }
   },
   server: {
-    port: 5000
+    port: 3000
   },
   build: {
     target: 'esnext',

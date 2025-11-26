@@ -4,12 +4,15 @@
   "version": "1.0.0",
   "scripts": {
     "dev:shell": "pnpm --filter shell dev",
-    "dev:accounts": "pnpm --filter accounts-mfe dev",
-    "dev:reporting": "pnpm --filter reporting-mfe dev",
-    "dev:all": "concurrently -n shell,accounts,reporting \"pnpm dev:shell\" \"pnpm dev:accounts\" \"pnpm dev:reporting\""
+    "preview:accounts": "pnpm --filter accounts-mfe serve-remote",
+    "preview:reporting": "pnpm --filter reporting-mfe serve-remote",
+    "dev:all": "concurrently -n shell,accounts,reporting \"pnpm dev:shell\" \"pnpm preview:accounts\" \"pnpm preview:reporting\""
   },
   "devDependencies": {
     "@originjs/vite-plugin-federation": "^1.4.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react-swc": "^4.2.2",
     "concurrently": "^9.0.0"
   },
   "dependencies": {
