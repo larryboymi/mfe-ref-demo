@@ -1,35 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 
-function App() {
-  const [count, setCount] = useState(0)
+const AccountsSummary = React.lazy(() => import('accounts/AccountsSummary'));
+const PositionsTable = React.lazy(() => import('reporting/PositionsTable'));
 
+const linkStyle: React.CSSProperties = { marginRight: '1rem' };
+
+function Nav() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <nav style={{ marginBottom: '1rem' }}>
+      <NavLink to="/" style={linkStyle}>Home</NavLink>
+      <NavLink to="/accounts" style={linkStyle}>Accounts</NavLink>
+      <NavLink to="/reporting" style={linkStyle}>Reporting</NavLink>
+    </nav>
+  );
 }
 
-export default App
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Nav />
+      <React.Suspense fallback={<div>Loading remote module…</div>}>
+        <Routes>
+          <Route path="/" element={<div>Shell host app</div>} />
+          <Route path="/accounts" element={<AccountsSummary />} />
+          <Route path="/reporting" element={<PositionsTable />} />
+        </Routes>
+      </React.Suspense>
+    </BrowserRouter>
+  );
+}
