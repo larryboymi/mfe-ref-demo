@@ -1,0 +1,14 @@
+{
+  "name": "my-mfe-demo",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev:shell": "pnpm --filter shell dev",
+    "dev:accounts": "pnpm --filter accounts-mfe dev",
+    "dev:reporting": "pnpm --filter reporting-mfe dev",
+    "dev:all": "concurrently -n shell,accounts,reporting \"pnpm dev:shell\" \"pnpm dev:accounts\" \"pnpm dev:reporting\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}
