@@ -1,3 +1,5 @@
+import PositionsTable from './widgets/PositionsTable'
+
 export default function App() {
-  return <div>Reporting MFE standalone</div>;
+  return <PositionsTable />
 }

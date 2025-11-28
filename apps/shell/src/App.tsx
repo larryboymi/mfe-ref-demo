@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 
-const AccountsSummary = React.lazy(() => import('accounts/AccountsSummary'));
-const PositionsTable = React.lazy(() => import('reporting/PositionsTable'));
+const AccountsApp = React.lazy(() => import('accounts/App'));
+const ReportingApp = React.lazy(() => import('reporting/App'));
 
 const linkStyle: React.CSSProperties = { marginRight: '1rem' };
 
@@ -23,8 +23,8 @@ export default function App() {
       <React.Suspense fallback={<div>Loading remote module…</div>}>
         <Routes>
           <Route path="/" element={<div>Shell host app</div>} />
-          <Route path="/accounts" element={<AccountsSummary />} />
-          <Route path="/reporting" element={<PositionsTable />} />
+          <Route path="/accounts" element={<AccountsApp />} />
+          <Route path="/reporting" element={<ReportingApp />} />
         </Routes>
       </React.Suspense>
     </BrowserRouter>

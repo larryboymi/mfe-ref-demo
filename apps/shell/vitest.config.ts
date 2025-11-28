@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      'accounts/AccountsSummary': path.resolve(__dirname, './tests/mocks/AccountsSummary.tsx'),
-      'reporting/PositionsTable': path.resolve(__dirname, './tests/mocks/PositionsTable.tsx'),
+      'accounts/App': path.resolve(__dirname, './tests/mocks/AccountsSummary.tsx'),
+      'reporting/App': path.resolve(__dirname, './tests/mocks/PositionsTable.tsx'),
     },
   },
   test: {

@@ -9,7 +9,8 @@ export default defineConfig({
       name: 'accounts',
       filename: 'remoteEntry.js',
       exposes: {
-        './AccountsSummary': './src/widgets/AccountsSummary.tsx'
+        './AccountsSummary': './src/widgets/AccountsSummary.tsx',
+        './App': './src/App.tsx'
       },
       shared: ['react', 'react-dom', '@demo/ui']
     })

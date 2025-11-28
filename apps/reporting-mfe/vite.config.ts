@@ -9,7 +9,8 @@ export default defineConfig({
       name: 'reporting',
       filename: 'remoteEntry.js',
       exposes: {
-        './PositionsTable': './src/widgets/PositionsTable.tsx'
+        './PositionsTable': './src/widgets/PositionsTable.tsx',
+        './App': './src/App.tsx'
       },
       shared: ['react', 'react-dom', '@demo/ui']
     })
