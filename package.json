@@ -9,7 +9,9 @@
     "dev:all": "concurrently -n shell,accounts,reporting \"pnpm dev:shell\" \"pnpm preview:accounts\" \"pnpm preview:reporting\"",
     "test": "pnpm -r test",
     "test:watch": "pnpm -r test:watch",
-    "test:coverage": "pnpm -r test:coverage"
+    "test:coverage": "pnpm -r test:coverage",
+    "e2e": "pnpm -r --aggregate-output e2e",
+    "e2e:open": "pnpm --filter shell e2e:open"
   },
   "devDependencies": {
     "@originjs/vite-plugin-federation": "^1.4.1",
@@ -19,6 +21,7 @@
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react-swc": "^4.2.2",
+    "cypress": "^14.2.0",
     "concurrently": "^9.0.0",
     "jsdom": "^27.2.0",
     "vitest": "^4.0.14"
