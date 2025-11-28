@@ -6,14 +6,22 @@
     "dev:shell": "pnpm --filter shell dev",
     "preview:accounts": "pnpm --filter accounts-mfe serve-remote",
     "preview:reporting": "pnpm --filter reporting-mfe serve-remote",
-    "dev:all": "concurrently -n shell,accounts,reporting \"pnpm dev:shell\" \"pnpm preview:accounts\" \"pnpm preview:reporting\""
+    "dev:all": "concurrently -n shell,accounts,reporting \"pnpm dev:shell\" \"pnpm preview:accounts\" \"pnpm preview:reporting\"",
+    "test": "pnpm -r test",
+    "test:watch": "pnpm -r test:watch",
+    "test:coverage": "pnpm -r test:coverage"
   },
   "devDependencies": {
     "@originjs/vite-plugin-federation": "^1.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react-swc": "^4.2.2",
-    "concurrently": "^9.0.0"
+    "concurrently": "^9.0.0",
+    "jsdom": "^27.2.0",
+    "vitest": "^4.0.14"
   },
   "dependencies": {
     "react-router-dom": "^7.9.6"
