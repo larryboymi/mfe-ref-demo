@@ -1,0 +1,11 @@
+import type { Account, Position } from '@demo/types'
+
+export const seedAccounts: Account[] = [
+  { id: '1', name: 'Retirement 401k', balance: 150000 },
+  { id: '2', name: 'Brokerage', balance: 55000 },
+]
+
+export const seedPositions: Position[] = [
+  { id: '1', symbol: 'AAPL', quantity: 50, value: 9500 },
+  { id: '2', symbol: 'TSLA', quantity: 10, value: 2500 },
+]

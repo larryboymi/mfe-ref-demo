@@ -16,9 +16,15 @@ export default defineConfig([
       reactRefresh.configs.vite,
     ],
     languageOptions: {
-      tsconfigRootDir: import.meta.dirname,
       ecmaVersion: 2020,
       globals: globals.browser,
+      parserOptions: {
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+    rules: {
+      'func-style': ['error', 'expression'],
+      'prefer-arrow-callback': 'error',
     },
   },
 ])

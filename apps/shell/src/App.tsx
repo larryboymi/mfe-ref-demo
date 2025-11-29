@@ -6,17 +6,15 @@ const ReportingApp = React.lazy(() => import('reporting/App'));
 
 const linkStyle: React.CSSProperties = { marginRight: '1rem' };
 
-function Nav() {
-  return (
-    <nav style={{ marginBottom: '1rem' }}>
-      <NavLink to="/" style={linkStyle}>Home</NavLink>
-      <NavLink to="/accounts" style={linkStyle}>Accounts</NavLink>
-      <NavLink to="/reporting" style={linkStyle}>Reporting</NavLink>
-    </nav>
-  );
-}
+const Nav = () => (
+  <nav style={{ marginBottom: '1rem' }}>
+    <NavLink to="/" style={linkStyle}>Home</NavLink>
+    <NavLink to="/accounts" style={linkStyle}>Accounts</NavLink>
+    <NavLink to="/reporting" style={linkStyle}>Reporting</NavLink>
+  </nav>
+);
 
-export default function App() {
+const App = () => {
   return (
     <BrowserRouter>
       <Nav />
@@ -29,4 +27,6 @@ export default function App() {
       </React.Suspense>
     </BrowserRouter>
   );
-}
+};
+
+export default App;
