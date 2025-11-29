@@ -1,19 +1,28 @@
-import React from 'react';
-import { Card, Button } from '@demo/ui';
-import type { Account } from '@demo/types';
-
-const mockAccounts: Account[] = [
-  { id: '1', name: 'Retirement 401k', balance: 150000 },
-  { id: '2', name: 'Brokerage', balance: 55000 }
-];
+import React from 'react'
+import { Card, Button } from '@demo/ui'
+import { useQuery } from '@tanstack/react-query'
+import type { Account } from '@demo/types'
+import { accountsQueryKey, fetchAccounts } from '../api/accounts'
 
 const AccountsSummary: React.FC = () => {
-  const [selected, setSelected] = React.useState<Account | null>(null);
+  const [selected, setSelected] = React.useState<Account | null>(null)
+  const { data: accounts, isLoading, isError } = useQuery({
+    queryKey: accountsQueryKey,
+    queryFn: fetchAccounts,
+  })
+
+  if (isLoading) {
+    return <div>Loading accounts…</div>
+  }
+
+  if (isError || !accounts) {
+    return <div>Unable to load accounts.</div>
+  }
 
   return (
     <div>
       <h2>Accounts (Accounts MFE)</h2>
-      {mockAccounts.map((acct) => (
+      {accounts.map((acct) => (
         <Card key={acct.id} title={acct.name}>
           <div>Balance: ${acct.balance.toLocaleString()}</div>
           <Button onClick={() => setSelected(acct)}>View details</Button>
@@ -27,7 +36,7 @@ const AccountsSummary: React.FC = () => {
         </Card>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default AccountsSummary;
+export default AccountsSummary

@@ -1,9 +1,36 @@
-import { render, screen } from '@testing-library/react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { render, screen, waitFor } from '@testing-library/react'
 import PositionsTable from '../../src/widgets/PositionsTable'
+import { afterEach } from 'vitest'
+
+const mockPositions = [
+  { id: '1', symbol: 'AAPL', quantity: 50, value: 9500 },
+  { id: '2', symbol: 'TSLA', quantity: 10, value: 2500 },
+]
+
+const renderWithClient = async () => {
+  const client = new QueryClient()
+  vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce({
+    ok: true,
+    json: async () => mockPositions,
+  } as Response)
+
+  render(
+    <QueryClientProvider client={client}>
+      <PositionsTable />
+    </QueryClientProvider>,
+  )
+
+  await waitFor(() => expect(screen.getByText(/positions \(reporting mfe\)/i)).toBeInTheDocument())
+}
+
+afterEach(() => {
+  vi.restoreAllMocks()
+})
 
 describe('PositionsTable', () => {
-  it('renders positions and totals', () => {
-    render(<PositionsTable />)
+  it('renders positions and totals', async () => {
+    await renderWithClient()
 
     expect(screen.getByRole('heading', { name: /positions \(reporting mfe\)/i })).toBeInTheDocument()
 

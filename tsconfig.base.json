@@ -11,10 +11,11 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "baseUrl": ".",
-    "types": ["vite/client", "react", "react-dom"],
+    "types": ["vite/client", "react", "react-dom", "node"],
     "paths": {
       "@demo/ui": ["packages/ui/src"],
-      "@demo/types": ["packages/types/src"]
+      "@demo/types": ["packages/types/src"],
+      "@demo/config": ["packages/config/src"],
     }
   }
 }

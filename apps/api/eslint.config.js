@@ -15,6 +15,7 @@ export default defineConfig([
     rules: {
       'func-style': ['error', 'expression'],
       'prefer-arrow-callback': 'error',
+      semi: ['error', 'never'],
     },
   },
 ])

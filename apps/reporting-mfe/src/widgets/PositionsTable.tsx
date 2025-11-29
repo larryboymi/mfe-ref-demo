@@ -1,14 +1,23 @@
-import React from 'react';
-import { Card } from '@demo/ui';
-import type { Position } from '@demo/types';
-
-const mockPositions: Position[] = [
-  { id: '1', symbol: 'AAPL', quantity: 50, value: 9500 },
-  { id: '2', symbol: 'TSLA', quantity: 10, value: 2500 }
-];
+import React from 'react'
+import { Card } from '@demo/ui'
+import { useQuery } from '@tanstack/react-query'
+import { positionsQueryKey, fetchPositions } from '../api/positions'
 
 const PositionsTable: React.FC = () => {
-  const total = mockPositions.reduce((sum, p) => sum + p.value, 0);
+  const { data: positions, isLoading, isError } = useQuery({
+    queryKey: positionsQueryKey,
+    queryFn: fetchPositions,
+  })
+
+  if (isLoading) {
+    return <div>Loading positions…</div>
+  }
+
+  if (isError || !positions) {
+    return <div>Unable to load positions.</div>
+  }
+
+  const total = positions.reduce((sum, p) => sum + p.value, 0)
 
   return (
     <div>
@@ -23,7 +32,7 @@ const PositionsTable: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {mockPositions.map((p) => (
+            {positions.map((p) => (
               <tr key={p.id}>
                 <td>{p.symbol}</td>
                 <td align="right">{p.quantity}</td>
@@ -41,7 +50,7 @@ const PositionsTable: React.FC = () => {
         </table>
       </Card>
     </div>
-  );
-};
+  )
+}
 
-export default PositionsTable;
+export default PositionsTable

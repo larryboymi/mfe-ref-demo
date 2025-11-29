@@ -1,10 +1,10 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
+import React from 'react'
+import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom'
 
-const AccountsApp = React.lazy(() => import('accounts/App'));
-const ReportingApp = React.lazy(() => import('reporting/App'));
+const AccountsApp = React.lazy(() => import('accounts/App'))
+const ReportingApp = React.lazy(() => import('reporting/App'))
 
-const linkStyle: React.CSSProperties = { marginRight: '1rem' };
+const linkStyle: React.CSSProperties = { marginRight: '1rem' }
 
 const Nav = () => (
   <nav style={{ marginBottom: '1rem' }}>
@@ -12,7 +12,7 @@ const Nav = () => (
     <NavLink to="/accounts" style={linkStyle}>Accounts</NavLink>
     <NavLink to="/reporting" style={linkStyle}>Reporting</NavLink>
   </nav>
-);
+)
 
 const App = () => {
   return (
@@ -26,7 +26,7 @@ const App = () => {
         </Routes>
       </React.Suspense>
     </BrowserRouter>
-  );
-};
+  )
+}
 
-export default App;
+export default App
