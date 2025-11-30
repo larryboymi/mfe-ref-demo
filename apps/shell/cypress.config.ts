@@ -8,7 +8,6 @@ export default defineConfig({
       config.baseUrl = `http://localhost:${env.shellPort}`
       return config
     },
-    baseUrl: `http://localhost:${env.shellPort}`,
     specPattern: 'cypress/**/*.cy.{ts,tsx}',
     supportFile: 'cypress/support/e2e.ts',
     video: false,
