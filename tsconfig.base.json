@@ -15,7 +15,7 @@
     "paths": {
       "@demo/ui": ["packages/ui/src"],
       "@demo/types": ["packages/types/src"],
-      "@demo/config": ["packages/config/src"],
+      "@demo/common": ["packages/common/src"],
     }
   }
 }

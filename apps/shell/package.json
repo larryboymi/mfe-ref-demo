@@ -15,7 +15,7 @@
     "serve-remote": "pnpm build && pnpm preview"
   },
   "dependencies": {
-    "@demo/config": "workspace:*",
+    "@demo/common": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },

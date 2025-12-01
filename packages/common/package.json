@@ -1,7 +1,6 @@
 {
-  "name": "@demo/config",
+  "name": "@demo/common",
   "version": "1.0.0",
-  "type": "module",
   "main": "src/index.ts",
   "types": "src/index.ts",
   "exports": {

@@ -54,9 +54,9 @@ importers:
 
   apps/accounts-mfe:
     dependencies:
-      '@demo/config':
+      '@demo/common':
         specifier: workspace:*
-        version: link:../../packages/config
+        version: link:../../packages/common
       '@tanstack/react-query':
         specifier: ^5.62.10
         version: 5.90.11(react@19.2.0)
@@ -185,9 +185,9 @@ importers:
 
   apps/reporting-mfe:
     dependencies:
-      '@demo/config':
+      '@demo/common':
         specifier: workspace:*
-        version: link:../../packages/config
+        version: link:../../packages/common
       '@tanstack/react-query':
         specifier: ^5.62.10
         version: 5.90.11(react@19.2.0)
@@ -261,9 +261,9 @@ importers:
 
   apps/shell:
     dependencies:
-      '@demo/config':
+      '@demo/common':
         specifier: workspace:*
-        version: link:../../packages/config
+        version: link:../../packages/common
       react:
         specifier: ^19.2.0
         version: 19.2.0
@@ -332,7 +332,7 @@ importers:
         specifier: ^4.0.14
         version: 4.0.14(@types/node@24.10.1)(jsdom@27.2.0)
 
-  packages/config: {}
+  packages/common: {}
 
   packages/types:
     devDependencies:

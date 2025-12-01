@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import federation from '@originjs/vite-plugin-federation'
-import { getEnv } from '@demo/config'
+import { getEnv } from '@demo/common'
 import path from 'node:path'
 
 export default defineConfig(async () => {
@@ -22,7 +22,7 @@ export default defineConfig(async () => {
       alias: {
         '@demo/ui': '../../packages/ui',
         '@demo/types': '../../packages/types',
-        '@demo/config': path.resolve(__dirname, '../../packages/config/src/index.ts')
+        '@demo/common': path.resolve(__dirname, '../../packages/common/src/index.ts')
       }
     },
     server: {

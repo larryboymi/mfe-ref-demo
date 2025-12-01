@@ -1,4 +1,4 @@
-import { getEnv } from '@demo/config'
+import { getEnv } from '@demo/common'
 import type { Account } from '@demo/types'
 
 export const accountsQueryKey = ['accounts'] as const

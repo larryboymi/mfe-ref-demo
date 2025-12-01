@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import federation from '@originjs/vite-plugin-federation'
-import { getEnv } from '@demo/config'
+import { getEnv } from '@demo/common'
 import path from 'node:path'
 
 export default defineConfig(async () => {
