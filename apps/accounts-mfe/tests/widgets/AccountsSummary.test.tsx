@@ -14,12 +14,19 @@ const mockAccounts: Account[] = [
   { id: '2', name: 'Brokerage', balance: 55000 },
 ]
 
-const renderWithClient = async () => {
-  const client = new QueryClient()
-  vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce({
-    ok: true,
-    json: async () => mockAccounts,
-  } as Response)
+const renderWithClient = async (responseOverride?: Response) => {
+  const client = new QueryClient({
+    defaultOptions: { queries: { retry: false } },
+  })
+
+  const response =
+    responseOverride ??
+    ({
+      ok: true,
+      json: async () => mockAccounts,
+    } as Response)
+
+  vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(response)
 
   render(
     <QueryClientProvider client={client}>
@@ -27,7 +34,7 @@ const renderWithClient = async () => {
     </QueryClientProvider>,
   )
 
-  await waitFor(() => expect(screen.getByText('Accounts (Accounts MFE)')).toBeInTheDocument())
+  return { client }
 }
 
 describe('AccountsSummary', () => {
@@ -35,6 +42,8 @@ describe('AccountsSummary', () => {
     const user = userEvent.setup()
 
     await renderWithClient()
+
+    await waitFor(() => expect(screen.getByText('Accounts (Accounts MFE)')).toBeInTheDocument())
 
     expect(screen.getByRole('heading', { name: /accounts \(accounts mfe\)/i })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Retirement 401k' })).toBeInTheDocument()
@@ -47,5 +56,15 @@ describe('AccountsSummary', () => {
     expect(screen.getByRole('heading', { name: /selected account/i })).toBeInTheDocument()
     expect(screen.getByText(/ID: 1/)).toBeInTheDocument()
     expect(screen.getByText(/Name: Retirement 401k/)).toBeInTheDocument()
+  })
+
+  it('shows an error message when loading fails', async () => {
+    await renderWithClient({
+      ok: false,
+      status: 500,
+      json: async () => [],
+    } as Response)
+
+    await waitFor(() => expect(screen.getByText(/unable to load accounts/i)).toBeInTheDocument())
   })
 })

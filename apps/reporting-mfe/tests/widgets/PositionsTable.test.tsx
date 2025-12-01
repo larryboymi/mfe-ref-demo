@@ -44,4 +44,27 @@ describe('PositionsTable', () => {
     expect(screen.getByText('$2,500')).toBeInTheDocument()
     expect(screen.getByText('$12,000')).toBeInTheDocument()
   })
+
+  it('shows an error message when loading fails', async () => {
+    const client = new QueryClient({
+      defaultOptions: {
+        queries: {
+          retry: false,
+        },
+      },
+    })
+    vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce({
+      ok: false,
+      status: 500,
+      json: async () => [],
+    } as Response)
+
+    render(
+      <QueryClientProvider client={client}>
+        <PositionsTable />
+      </QueryClientProvider>,
+    )
+
+    await waitFor(() => expect(screen.getByText(/unable to load positions/i)).toBeInTheDocument())
+  })
 })
