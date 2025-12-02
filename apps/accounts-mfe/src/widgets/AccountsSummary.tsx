@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, Button } from '@demo/ui'
 import { useQuery } from '@tanstack/react-query'
 import type { Account } from '@demo/types'
-import { accountsQueryKey, fetchAccounts } from '../api/accounts'
+import { accountsQueryKey, fetchAccounts } from '@demo/common/api/accounts'
 
 const AccountsSummary: React.FC = () => {
   const [selected, setSelected] = React.useState<Account | null>(null)

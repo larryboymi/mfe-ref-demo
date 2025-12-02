@@ -7,15 +7,15 @@ describe('API server', () => {
 
     expect(getAccounts(db)).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({ id: '1', name: 'Retirement 401k', balance: 150000 }),
-        expect.objectContaining({ id: '2', name: 'Brokerage', balance: 55000 }),
+        expect.objectContaining({ id: '1', institutionId: 'inst-1', name: 'Retirement 401k', balance: 150000 }),
+        expect.objectContaining({ id: '2', institutionId: 'inst-2', name: 'Brokerage', balance: 55000 }),
       ]),
     )
 
     expect(getPositions(db)).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({ id: '1', symbol: 'AAPL', quantity: 50, value: 9500 }),
-        expect.objectContaining({ id: '2', symbol: 'TSLA', quantity: 10, value: 2500 }),
+        expect.objectContaining({ id: '1', institutionId: 'inst-1', symbol: 'AAPL', quantity: 50, value: 9500 }),
+        expect.objectContaining({ id: '2', institutionId: 'inst-2', symbol: 'TSLA', quantity: 10, value: 2500 }),
       ]),
     )
   })
@@ -67,8 +67,8 @@ describe('API server', () => {
 
     expect(body).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({ id: '1', name: 'Retirement 401k', balance: 150000 }),
-        expect.objectContaining({ id: '2', name: 'Brokerage', balance: 55000 }),
+        expect.objectContaining({ id: '1', institutionId: 'inst-1', name: 'Retirement 401k', balance: 150000 }),
+        expect.objectContaining({ id: '2', institutionId: 'inst-2', name: 'Brokerage', balance: 55000 }),
       ]),
     )
   })
@@ -98,8 +98,8 @@ describe('API server', () => {
 
     expect(body).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({ id: '1', symbol: 'AAPL', quantity: 50, value: 9500 }),
-        expect.objectContaining({ id: '2', symbol: 'TSLA', quantity: 10, value: 2500 }),
+        expect.objectContaining({ id: '1', institutionId: 'inst-1', symbol: 'AAPL', quantity: 50, value: 9500 }),
+        expect.objectContaining({ id: '2', institutionId: 'inst-2', symbol: 'TSLA', quantity: 10, value: 2500 }),
       ]),
     )
   })

@@ -8,6 +8,8 @@ export default defineConfig({
     alias: {
       '@demo/ui': path.resolve(__dirname, '../../packages/ui'),
       '@demo/types': path.resolve(__dirname, '../../packages/types'),
+      '@demo/common': path.resolve(__dirname, '../../packages/common/src'),
+      '@demo/common/api': path.resolve(__dirname, '../../packages/common/src/api')
     },
   },
   test: {

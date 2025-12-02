@@ -10,8 +10,8 @@ afterEach(() => {
 import type { Account } from '@demo/types'
 
 const mockAccounts: Account[] = [
-  { id: '1', name: 'Retirement 401k', balance: 150000 },
-  { id: '2', name: 'Brokerage', balance: 55000 },
+  { id: '1', institutionId: 'inst-1', name: 'Retirement 401k', balance: 150000 },
+  { id: '2', institutionId: 'inst-2', name: 'Brokerage', balance: 55000 },
 ]
 
 const renderWithClient = async (responseOverride?: Response) => {

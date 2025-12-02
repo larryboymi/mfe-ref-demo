@@ -1,5 +1,5 @@
-import { getEnv } from '@demo/common'
 import type { Position } from '@demo/types'
+import { getEnv } from '../index'
 
 export const positionsQueryKey = ['positions'] as const
 

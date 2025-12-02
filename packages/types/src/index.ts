@@ -24,7 +24,6 @@ export type Position = {
   value: number;
 };
 
-// Optionally a reference bundle if you want a single payload:
 export type ReferenceData = {
   institutions: Institution[];
   // later: currencies, countries, accountTypes, etc

@@ -22,7 +22,8 @@ export default defineConfig(async () => {
       alias: {
         '@demo/ui': '../../packages/ui',
         '@demo/types': '../../packages/types',
-        '@demo/common': path.resolve(__dirname, '../../packages/common/src/index.ts')
+        '@demo/common': path.resolve(__dirname, '../../packages/common/src'),
+        '@demo/common/api': path.resolve(__dirname, '../../packages/common/src/api')
       }
     },
     server: {

@@ -1,6 +1,6 @@
 import { afterEach } from 'vitest'
 
-vi.mock('@demo/common', () => ({
+vi.mock('../..', () => ({
   getEnv: vi.fn().mockResolvedValue({
     apiBaseUrl: 'http://api.test',
     shellPort: 3000,

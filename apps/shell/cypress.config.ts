@@ -1,5 +1,5 @@
 import { defineConfig } from 'cypress'
-import { getEnv } from '../../packages/common/src/config'
+import { getEnv } from '@demo/common'
 
 export default defineConfig({
   e2e: {

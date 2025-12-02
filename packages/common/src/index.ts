@@ -8,10 +8,13 @@ export type EnvConfig = {
 let cachedEnv: EnvConfig | null = null
 
 const readEnv = (): EnvConfig => {
-  const apiBaseUrl = process.env.VITE_API_URL || 'http://localhost:3050'
+  const metaEnv = typeof import.meta !== 'undefined' ? (import.meta as any).env ?? {} : {}
+  const procEnv = typeof process !== 'undefined' ? process.env ?? {} : {}
+
+  const apiBaseUrl = metaEnv.VITE_API_URL || procEnv.VITE_API_URL || 'http://localhost:3050'
 
   const readNumber = (key: string, fallback: number) => {
-    const value = process.env[key]
+    const value = metaEnv[key] ?? procEnv[key]
     const parsed = value ? Number(value) : Number.NaN
     return Number.isFinite(parsed) ? parsed : fallback
   }

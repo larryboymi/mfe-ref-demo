@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card } from '@demo/ui'
 import { useQuery } from '@tanstack/react-query'
-import { positionsQueryKey, fetchPositions } from '../api/positions'
+import { positionsQueryKey, fetchPositions } from '@demo/common/api/positions'
 
 const PositionsTable: React.FC = () => {
   const { data: positions, isLoading, isError } = useQuery({

@@ -4,8 +4,8 @@ import PositionsTable from '../../src/widgets/PositionsTable'
 import { afterEach } from 'vitest'
 
 const mockPositions = [
-  { id: '1', symbol: 'AAPL', quantity: 50, value: 9500 },
-  { id: '2', symbol: 'TSLA', quantity: 10, value: 2500 },
+  { id: '1', institutionId: 'inst-1', symbol: 'AAPL', quantity: 50, value: 9500 },
+  { id: '2', institutionId: 'inst-2', symbol: 'TSLA', quantity: 10, value: 2500 },
 ]
 
 const renderWithClient = async () => {
