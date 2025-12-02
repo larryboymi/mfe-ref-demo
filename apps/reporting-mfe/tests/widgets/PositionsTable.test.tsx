@@ -10,10 +10,23 @@ const mockPositions = [
 
 const renderWithClient = async () => {
   const client = new QueryClient()
-  vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce({
-    ok: true,
-    json: async () => mockPositions,
-  } as Response)
+  const fetchMock = vi.spyOn(globalThis, 'fetch')
+  fetchMock.mockImplementation(async (input: RequestInfo | URL) => {
+    const url = typeof input === 'string' ? input : input.toString()
+    if (url.includes('/positions')) {
+      return {
+        ok: true,
+        json: async () => mockPositions,
+      } as Response
+    }
+    if (url.includes('/reference-data')) {
+      return {
+        ok: true,
+        json: async () => ({ institutions: [] }),
+      } as Response
+    }
+    throw new Error(`Unhandled fetch url: ${url}`)
+  })
 
   render(
     <QueryClientProvider client={client}>
@@ -53,11 +66,24 @@ describe('PositionsTable', () => {
         },
       },
     })
-    vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce({
-      ok: false,
-      status: 500,
-      json: async () => [],
-    } as Response)
+    const fetchMock = vi.spyOn(globalThis, 'fetch')
+    fetchMock.mockImplementation(async (input: RequestInfo | URL) => {
+      const url = typeof input === 'string' ? input : input.toString()
+      if (url.includes('/positions')) {
+        return {
+          ok: false,
+          status: 500,
+          json: async () => [],
+        } as Response
+      }
+      if (url.includes('/reference-data')) {
+        return {
+          ok: true,
+          json: async () => ({ institutions: [] }),
+        } as Response
+      }
+      throw new Error(`Unhandled fetch url: ${url}`)
+    })
 
     render(
       <QueryClientProvider client={client}>

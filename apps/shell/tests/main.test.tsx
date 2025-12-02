@@ -1,9 +1,14 @@
+import { waitFor } from '@testing-library/react'
 import { vi } from 'vitest'
 
 const createRootMock = vi.fn(() => ({ render: vi.fn() }))
 
 vi.mock('react-dom/client', () => ({
   createRoot: (...args: unknown[]) => createRootMock(...args),
+}))
+
+vi.mock('@demo/common', () => ({
+  prefetchReferenceData: vi.fn().mockResolvedValue(undefined),
 }))
 
 vi.mock('../src/App', () => ({
@@ -19,7 +24,7 @@ describe('main entry', () => {
   it('mounts the app into #root', async () => {
     await import('../src/main')
 
-    expect(createRootMock).toHaveBeenCalledTimes(1)
+    await waitFor(() => expect(createRootMock).toHaveBeenCalledTimes(1))
     const mountArg = createRootMock.mock.calls[0]?.[0]
     expect(mountArg).toBe(document.getElementById('root'))
   })

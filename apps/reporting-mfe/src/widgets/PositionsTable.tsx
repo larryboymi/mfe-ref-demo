@@ -1,13 +1,10 @@
 import React from 'react'
 import { Card } from '@demo/ui'
-import { useQuery } from '@tanstack/react-query'
-import { positionsQueryKey, fetchPositions } from '@demo/common/api/positions'
+import { usePositions, useInstitutions } from '@demo/common'
 
 const PositionsTable: React.FC = () => {
-  const { data: positions, isLoading, isError } = useQuery({
-    queryKey: positionsQueryKey,
-    queryFn: fetchPositions,
-  })
+  const { institutions } = useInstitutions()
+  const { data: positions, isLoading, isError } = usePositions()
 
   if (isLoading) {
     return <div>Loading positions…</div>
@@ -32,13 +29,16 @@ const PositionsTable: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {positions.map((p) => (
-              <tr key={p.id}>
-                <td>{p.symbol}</td>
-                <td align="right">{p.quantity}</td>
-                <td align="right">${p.value.toLocaleString()}</td>
-              </tr>
-            ))}
+            {positions.map((p) => {
+              const inst = institutions.find((inst) => inst.id === p.institutionId)
+              return (
+                <tr key={p.id}>
+                  <td>{`${p.symbol} ${inst ? `held @ ${inst.name})` : ""}`}</td>
+                  <td align="right">{p.quantity}</td>
+                  <td align="right">${p.value.toLocaleString()}</td>
+                </tr>
+              )
+            })}
           </tbody>
           <tfoot>
             <tr>

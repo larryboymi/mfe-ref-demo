@@ -16,7 +16,7 @@ export default defineConfig(async () => {
           './AccountsSummary': './src/widgets/AccountsSummary.tsx',
           './App': './src/App.tsx'
         },
-        shared: ['react', 'react-dom', '@demo/ui']
+        shared: ['react', 'react-dom', '@demo/ui', '@demo/common']
       })
     ],
     resolve: {

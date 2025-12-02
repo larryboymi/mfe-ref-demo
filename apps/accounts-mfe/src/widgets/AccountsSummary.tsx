@@ -1,15 +1,12 @@
 import React from 'react'
 import { Card, Button } from '@demo/ui'
-import { useQuery } from '@tanstack/react-query'
 import type { Account } from '@demo/types'
-import { accountsQueryKey, fetchAccounts } from '@demo/common/api/accounts'
+import { useAccounts, useInstitutions } from '@demo/common'
 
 const AccountsSummary: React.FC = () => {
+  const { institutions } = useInstitutions()
   const [selected, setSelected] = React.useState<Account | null>(null)
-  const { data: accounts, isLoading, isError } = useQuery({
-    queryKey: accountsQueryKey,
-    queryFn: fetchAccounts,
-  })
+  const { data: accounts, isLoading, isError } = useAccounts()
 
   if (isLoading) {
     return <div>Loading accounts…</div>
@@ -22,12 +19,15 @@ const AccountsSummary: React.FC = () => {
   return (
     <div>
       <h2>Accounts (Accounts MFE)</h2>
-      {accounts.map((acct) => (
-        <Card key={acct.id} title={acct.name}>
-          <div>Balance: ${acct.balance.toLocaleString()}</div>
-          <Button onClick={() => setSelected(acct)}>View details</Button>
-        </Card>
-      ))}
+      {accounts.map((acct) => {
+        const inst = institutions.find((inst) => inst.id === acct.institutionId)
+        return (
+          <Card key={acct.id} title={`${acct.name} ${inst ? `(${inst.name})` : ""}`}>
+            <div>Balance: ${acct.balance.toLocaleString()}</div>
+            <Button onClick={() => setSelected(acct)}>View details</Button>
+          </Card>
+        )
+      })}
       {selected && (
         <Card title="Selected account">
           <div>ID: {selected.id}</div>

@@ -11,20 +11,24 @@
   },
   "exports": {
     ".": {
-      "import": "./src/index.ts",
-      "require": "./src/index.ts",
-      "types": "./src/index.ts"
+      "types": "./src/index.ts",
+      "import": "./src/index.ts"
     },
     "./api/accounts": {
-      "import": "./src/api/accounts.ts",
-      "require": "./src/api/accounts.ts",
-      "types": "./src/api/accounts.ts"
+      "types": "./src/api/accounts.ts",
+      "import": "./src/api/accounts.ts"
     },
     "./api/positions": {
-      "import": "./src/api/positions.ts",
-      "require": "./src/api/positions.ts",
-      "types": "./src/api/positions.ts"
+      "types": "./src/api/positions.ts",
+      "import": "./src/api/positions.ts"
+    },
+    "./api/referenceData": {
+      "types": "./src/api/referenceData.ts",
+      "import": "./src/api/referenceData.ts"
     }
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.62.10"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",

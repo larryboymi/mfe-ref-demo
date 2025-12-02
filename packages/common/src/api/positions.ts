@@ -1,5 +1,6 @@
-import type { Position } from '@demo/types'
 import { getEnv } from '../index'
+import { useQuery } from '@tanstack/react-query'
+import type { Position } from '@demo/types'
 
 export const positionsQueryKey = ['positions'] as const
 
@@ -11,3 +12,9 @@ export const fetchPositions = async (): Promise<Position[]> => {
   }
   return res.json()
 }
+
+export const usePositions = () =>
+  useQuery<Position[]>({
+    queryKey: positionsQueryKey,
+    queryFn: fetchPositions,
+  })

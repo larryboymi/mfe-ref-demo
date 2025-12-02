@@ -1,30 +1,33 @@
+// Institution / reference data
+
 export type InstitutionId = string;
 
 export type Institution = {
   id: InstitutionId;
   name: string;
-  // Optional display fields; add more as needed
   shortName?: string;
   logoUrl?: string;
   primaryColor?: string;
 };
 
+export type ReferenceData = {
+  institutions: Institution[];
+  // later: currencies, accountTypes, etc
+};
+
+// Domain types
+
 export type Account = {
   id: string;
-  institutionId: InstitutionId;
   name: string;
   balance: number;
+  institutionId: InstitutionId;
 };
 
 export type Position = {
   id: string;
-  institutionId: InstitutionId;
-  quantity: number;
   symbol: string;
+  quantity: number;
   value: number;
-};
-
-export type ReferenceData = {
-  institutions: Institution[];
-  // later: currencies, countries, accountTypes, etc
+  institutionId: InstitutionId;
 };

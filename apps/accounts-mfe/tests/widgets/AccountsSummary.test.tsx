@@ -19,14 +19,26 @@ const renderWithClient = async (responseOverride?: Response) => {
     defaultOptions: { queries: { retry: false } },
   })
 
-  const response =
-    responseOverride ??
-    ({
-      ok: true,
-      json: async () => mockAccounts,
-    } as Response)
-
-  vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(response)
+  const fetchMock = vi.spyOn(globalThis, 'fetch')
+  fetchMock.mockImplementation(async (input: RequestInfo | URL) => {
+    const url = typeof input === 'string' ? input : input.toString()
+    if (url.includes('/accounts')) {
+      return (
+        responseOverride ??
+        ({
+          ok: true,
+          json: async () => mockAccounts,
+        } as Response)
+      )
+    }
+    if (url.includes('/reference-data')) {
+      return {
+        ok: true,
+        json: async () => ({ institutions: [] }),
+      } as Response
+    }
+    throw new Error(`Unhandled fetch url: ${url}`)
+  })
 
   render(
     <QueryClientProvider client={client}>

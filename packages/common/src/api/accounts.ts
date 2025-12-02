@@ -1,5 +1,6 @@
-import type { Account } from '@demo/types'
 import { getEnv } from '../index'
+import { useQuery } from '@tanstack/react-query'
+import type { Account } from '@demo/types'
 
 export const accountsQueryKey = ['accounts'] as const
 
@@ -11,3 +12,9 @@ export const fetchAccounts = async (): Promise<Account[]> => {
   }
   return res.json()
 }
+
+export const useAccounts = () =>
+  useQuery<Account[]>({
+    queryKey: accountsQueryKey,
+    queryFn: fetchAccounts,
+  })

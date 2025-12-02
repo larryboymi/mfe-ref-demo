@@ -15,7 +15,7 @@ export default defineConfig(async () => {
           accounts: `http://localhost:${env.accountsPort}/assets/remoteEntry.js`,
           reporting: `http://localhost:${env.reportingPort}/assets/remoteEntry.js`,
         },
-        shared: ['react', 'react-dom', 'react-router-dom', '@demo/ui']
+        shared: ['react', 'react-dom', 'react-router-dom', '@demo/ui', '@demo/common']
       })
     ],
     resolve: {

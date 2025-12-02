@@ -16,7 +16,7 @@ export default defineConfig(async () => {
           './PositionsTable': './src/widgets/PositionsTable.tsx',
           './App': './src/App.tsx'
         },
-        shared: ['react', 'react-dom', '@demo/ui']
+        shared: ['react', 'react-dom', '@demo/ui', '@demo/common']
       })
     ],
     resolve: {
