@@ -1,5 +1,5 @@
-import { getEnv } from '../index'
-import type { ReferenceData, Institution, InstitutionId } from '@demo/types'
+import { getEnv } from '../index.ts'
+import type { ReferenceData, InstitutionId } from '@demo/types'
 import { useQuery, QueryClient } from '@tanstack/react-query'
 
 export const referenceDataQueryKey = ['referenceData'] as const

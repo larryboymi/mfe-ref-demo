@@ -1,4 +1,4 @@
-import { getEnv } from '../index'
+import { getEnv } from '../index.ts'
 import { useQuery } from '@tanstack/react-query'
 import type { Account } from '@demo/types'
 

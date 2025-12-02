@@ -1,6 +1,6 @@
-export * from './api/accounts'
-export * from './api/positions'
-export * from './api/referenceData'
+export * from './api/accounts.ts'
+export * from './api/positions.ts'
+export * from './api/referenceData.ts'
 
 export type EnvConfig = {
   apiBaseUrl: string
@@ -12,7 +12,10 @@ export type EnvConfig = {
 let cachedEnv: EnvConfig | null = null
 
 const readEnv = (): EnvConfig => {
-  const metaEnv = typeof import.meta !== 'undefined' ? (import.meta as any).env ?? {} : {}
+  const metaEnv =
+    typeof import.meta !== 'undefined'
+      ? ((import.meta as { env?: Record<string, string | undefined> }).env ?? {})
+      : {}
   const procEnv = typeof process !== 'undefined' ? process.env ?? {} : {}
 
   const apiBaseUrl = metaEnv.VITE_API_URL || procEnv.VITE_API_URL || 'http://localhost:3050'
