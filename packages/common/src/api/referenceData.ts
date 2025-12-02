@@ -1,5 +1,5 @@
 import { getEnv } from '../index.ts'
-import type { ReferenceData, InstitutionId } from '@demo/types'
+import type { ReferenceData, InstitutionId, Institution } from '@demo/types'
 import { useQuery, QueryClient } from '@tanstack/react-query'
 
 export const referenceDataQueryKey = ['referenceData'] as const
@@ -10,7 +10,8 @@ export const fetchReferenceData = async (): Promise<ReferenceData> => {
   if (!res.ok) {
     throw new Error(`Failed to fetch reference data: ${res.status}`)
   }
-  return res.json()
+  const data = (await res.json()) as ReferenceData
+  return data
 }
 
 export const useReferenceData = () =>
@@ -32,7 +33,7 @@ export const useInstitutions = () => {
 export const useInstitutionById = (id: InstitutionId | null | undefined) => {
   const { institutions } = useInstitutions()
   if (!id) return undefined
-  return institutions.find((inst) => inst.id === id)
+  return institutions.find((inst: Institution) => inst.id === id)
 }
 
 export const prefetchReferenceData = async (queryClient: QueryClient) => {

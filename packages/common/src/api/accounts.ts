@@ -10,7 +10,8 @@ export const fetchAccounts = async (): Promise<Account[]> => {
   if (!res.ok) {
     throw new Error(`Failed to fetch accounts: ${res.status}`)
   }
-  return res.json()
+  const data = (await res.json()) as Account[]
+  return data
 }
 
 export const useAccounts = () =>

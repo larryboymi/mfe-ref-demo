@@ -337,6 +337,12 @@ importers:
 
   packages/common:
     dependencies:
+      '@demo/types':
+        specifier: workspace:*
+        version: link:../types
+      '@tanstack/query-core':
+        specifier: ^5.62.10
+        version: 5.90.11
       '@tanstack/react-query':
         specifier: ^5.62.10
         version: 5.90.11(react@19.2.0)

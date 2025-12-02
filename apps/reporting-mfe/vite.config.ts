@@ -22,7 +22,7 @@ export default defineConfig(async () => {
     resolve: {
       alias: {
         '@demo/ui': '../../packages/ui',
-        '@demo/types': '../../packages/types',
+        '@demo/types': path.resolve(__dirname, '../../packages/types/src'),
         '@demo/common': path.resolve(__dirname, '../../packages/common/src'),
         '@demo/common/api': path.resolve(__dirname, '../../packages/common/src/api')
       }

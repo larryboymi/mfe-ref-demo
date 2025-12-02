@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card } from '@demo/ui'
 import { usePositions, useInstitutions } from '@demo/common'
+import type { Institution } from '@demo/types'
 
 const PositionsTable: React.FC = () => {
   const { institutions } = useInstitutions()
@@ -30,7 +31,7 @@ const PositionsTable: React.FC = () => {
           </thead>
           <tbody>
             {positions.map((p) => {
-              const inst = institutions.find((inst) => inst.id === p.institutionId)
+              const inst = institutions.find((inst: Institution) => inst.id === p.institutionId)
               return (
                 <tr key={p.id}>
                   <td>{`${p.symbol} ${inst ? `held @ ${inst.name})` : ""}`}</td>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, Button } from '@demo/ui'
-import type { Account } from '@demo/types'
+import type { Account, Institution } from '@demo/types'
 import { useAccounts, useInstitutions } from '@demo/common'
 
 const AccountsSummary: React.FC = () => {
@@ -19,8 +19,8 @@ const AccountsSummary: React.FC = () => {
   return (
     <div>
       <h2>Accounts (Accounts MFE)</h2>
-      {accounts.map((acct) => {
-        const inst = institutions.find((inst) => inst.id === acct.institutionId)
+      {accounts.map((acct: Account) => {
+        const inst = institutions.find((inst: Institution) => inst.id === acct.institutionId)
         return (
           <Card key={acct.id} title={`${acct.name} ${inst ? `(${inst.name})` : ""}`}>
             <div>Balance: ${acct.balance.toLocaleString()}</div>

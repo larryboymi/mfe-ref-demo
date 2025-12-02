@@ -29,7 +29,9 @@
     }
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.62.10"
+    "@demo/types": "workspace:*",
+    "@tanstack/react-query": "^5.62.10",
+    "@tanstack/query-core": "^5.62.10"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

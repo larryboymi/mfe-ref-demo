@@ -10,7 +10,8 @@ export const fetchPositions = async (): Promise<Position[]> => {
   if (!res.ok) {
     throw new Error(`Failed to fetch positions: ${res.status}`)
   }
-  return res.json()
+  const data = (await res.json()) as Position[]
+  return data
 }
 
 export const usePositions = () =>
