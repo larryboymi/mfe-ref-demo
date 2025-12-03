@@ -1,7 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import { createDb, getAccounts, getPositions } from './db.js'
-import { seedInstitutions } from './data.js'
+import { createDb, getAccounts, getPositions, getInstitutions } from './db.js'
 
 export const createApp = async () => {
   const db = await createDb()
@@ -26,7 +25,7 @@ export const createApp = async () => {
   })
 
   app.get('/reference-data', (_req, res) => {
-    res.json({ institutions: seedInstitutions })
+    res.json({ institutions: getInstitutions(db) })
   })
 
   return { app, db }

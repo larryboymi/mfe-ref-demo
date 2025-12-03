@@ -1,6 +1,6 @@
 import initSqlJs, { Database } from 'sql.js'
 import { seedAccounts, seedPositions, seedInstitutions } from './data.js'
-import type { Account, Position } from '@demo/types'
+import type { Account, Position, Institution } from '@demo/types'
 
 export const createDb = async (): Promise<Database> => {
   const SQL = await initSqlJs({})
@@ -75,6 +75,29 @@ export const getPositions = (db: Database): Position[] => {
   while (stmt.step()) {
     const [id, institutionId, symbol, quantity, value] = stmt.get() as [string, string, string, number, number]
     rows.push({ id, institutionId, symbol, quantity, value })
+  }
+  stmt.free()
+  return rows
+}
+
+export const getInstitutions = (db: Database): Institution[] => {
+  const stmt = db.prepare('SELECT id, name, shortName, logoUrl, primaryColor FROM institutions')
+  const rows: Institution[] = []
+  while (stmt.step()) {
+    const [id, name, shortName, logoUrl, primaryColor] = stmt.get() as [
+      string,
+      string,
+      string | null,
+      string | null,
+      string | null,
+    ]
+    rows.push({
+      id,
+      name,
+      shortName: shortName ?? undefined,
+      logoUrl: logoUrl ?? undefined,
+      primaryColor: primaryColor ?? undefined,
+    })
   }
   stmt.free()
   return rows
