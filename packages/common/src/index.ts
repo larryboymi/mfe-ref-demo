@@ -2,7 +2,9 @@ export * from './api/accounts.ts'
 export * from './api/positions.ts'
 export * from './api/referenceData.ts'
 export * from './queryClient.ts'
-export * from './selectionStore.ts'
+export * from './store/baseStore.ts'
+export * from './store/selectionStore.ts'
+export * from './store/favoritesStore.ts'
 
 export type EnvConfig = {
   apiBaseUrl: string

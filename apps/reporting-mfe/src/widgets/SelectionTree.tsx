@@ -10,7 +10,7 @@ const SelectionTree: React.FC = () => {
     <div style={{ marginTop: '1rem' }}>
       <h3>Cross-component selection</h3>
       <SelectionDemo
-        activeId={snapshot.activeId}
+        activeId={snapshot.state.activeId}
         ticks={snapshot.ticks}
         values={['fast', 'reliable', 'scalable', 'simple']}
         onSelect={select}

@@ -1,11 +1,13 @@
 import React from 'react'
 import { Card } from '@demo/ui'
-import { usePositions, useInstitutions } from '@demo/common'
+import { usePositions, useInstitutions, useFavoritesActions, useFavoritesSnapshot } from '@demo/common'
 import type { Institution } from '@demo/types'
 
 const PositionsTable: React.FC = () => {
   const { institutions } = useInstitutions()
   const { data: positions, isLoading, isError } = usePositions()
+  const favorites = useFavoritesSnapshot()
+  const { toggle } = useFavoritesActions()
 
   if (isLoading) {
     return <div>Loading positions…</div>
@@ -32,9 +34,21 @@ const PositionsTable: React.FC = () => {
           <tbody>
             {positions.map((p) => {
               const inst = institutions.find((inst: Institution) => inst.id === p.institutionId)
+              const isFav = inst ? favorites.state.ids.includes(inst.id) : false
               return (
                 <tr key={p.id}>
-                  <td>{`${p.symbol} ${inst ? `held @ ${inst.name})` : ""}`}</td>
+                  <td>
+                    {`${p.symbol} ${inst ? `held @ ${inst.name})` : ""}`}{' '}
+                    {inst && (
+                      <button
+                        aria-label="toggle favorite institution"
+                        onClick={() => toggle(inst.id)}
+                        style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}
+                      >
+                        {isFav ? '❤️' : '🤍'}
+                      </button>
+                    )}
+                  </td>
                   <td align="right">{p.quantity}</td>
                   <td align="right">${p.value.toLocaleString()}</td>
                 </tr>

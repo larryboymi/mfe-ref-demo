@@ -10,7 +10,7 @@ const SelectionMirror: React.FC = () => {
     <div style={{ marginTop: '1rem' }}>
       <h3>Shared selection (Accounts)</h3>
       <SelectionDemo
-        activeId={snapshot.activeId}
+        activeId={snapshot.state.activeId}
         ticks={snapshot.ticks}
         values={['401k', 'Brokerage', 'IRA', '529']}
         onSelect={select}
