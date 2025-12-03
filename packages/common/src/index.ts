@@ -6,6 +6,9 @@ export * from './store/baseStore.ts'
 export * from './store/selectionStore.ts'
 export * from './store/favoritesStore.ts'
 
+type MetaEnv = Record<string, string | undefined>
+type GlobalWithMeta = typeof globalThis & { __demoMetaEnv?: MetaEnv }
+
 export type EnvConfig = {
   apiBaseUrl: string
   shellPort: number
@@ -15,17 +18,10 @@ export type EnvConfig = {
 
 let cachedEnv: EnvConfig | null = null
 
-const readEnv = (overrides?: {
-  meta?: Record<string, string | undefined>
-  proc?: Record<string, string | undefined>
-}): EnvConfig => {
-  const injected = overrides?.meta ?? (globalThis as any).__demoMetaEnv
-  const metaEnv = (injected ??
-    ((import.meta as { env?: Record<string, string | undefined> }).env ?? {})) as Record<
-    string,
-    string | undefined
-  >
-  const procEnv = overrides?.proc ?? ((globalThis as any).process?.env ?? {})
+const readEnv = (overrides?: { meta?: MetaEnv; proc?: MetaEnv }): EnvConfig => {
+  const injected = overrides?.meta ?? (globalThis as GlobalWithMeta).__demoMetaEnv
+  const metaEnv: MetaEnv = injected ?? (import.meta as { env?: MetaEnv }).env ?? {}
+  const procEnv: MetaEnv = overrides?.proc ?? ((globalThis as { process?: { env?: MetaEnv } }).process?.env ?? {})
 
   const apiBaseUrl = metaEnv.VITE_API_URL || procEnv.VITE_API_URL || 'http://localhost:3050'
 

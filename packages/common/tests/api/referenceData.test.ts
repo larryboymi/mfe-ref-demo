@@ -57,12 +57,13 @@ describe('reference data client', () => {
   })
 
   it('prefetches with provided queryClient', async () => {
-    const prefetchQuery = vi.fn()
-    const { prefetchReferenceData, referenceDataQueryKey, fetchReferenceData } = await import(
-      '../../src/api/referenceData.ts'
-    )
-    await prefetchReferenceData({ prefetchQuery } as any)
-    expect(prefetchQuery).toHaveBeenCalledWith({
+      const { QueryClient } = await import('@tanstack/react-query')
+    const { prefetchReferenceData, referenceDataQueryKey, fetchReferenceData } =
+      await import('../../src/api/referenceData.ts')
+    const client = new QueryClient()
+    const spy = vi.spyOn(client, 'prefetchQuery')
+    await prefetchReferenceData(client)
+    expect(spy).toHaveBeenCalledWith({
       queryKey: referenceDataQueryKey,
       queryFn: fetchReferenceData,
       staleTime: 60 * 60 * 1000,

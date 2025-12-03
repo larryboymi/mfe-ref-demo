@@ -3,8 +3,8 @@ import { describe, expect, it, vi, beforeEach } from 'vitest'
 describe('env helper', () => {
   beforeEach(() => {
     vi.resetModules()
-    // @ts-ignore
-    delete (globalThis as any).__demoMetaEnv
+    const globalWithMeta = globalThis as typeof globalThis & { __demoMetaEnv?: Record<string, string | undefined> }
+    delete globalWithMeta.__demoMetaEnv
   })
 
   it('reads numbers and api base url from process env', async () => {
@@ -26,7 +26,8 @@ describe('env helper', () => {
   })
 
   it('reads from injected meta env when provided', async () => {
-    ;(globalThis as any).__demoMetaEnv = {
+    const globalWithMeta = globalThis as typeof globalThis & { __demoMetaEnv?: Record<string, string | undefined> }
+    globalWithMeta.__demoMetaEnv = {
       VITE_API_URL: 'http://meta',
       VITE_SHELL_PORT: '1234',
     }
@@ -44,7 +45,8 @@ describe('env helper', () => {
   })
 
   it('uses numeric fallbacks when env values are invalid', async () => {
-    ;(globalThis as any).__demoMetaEnv = {
+    const globalWithMeta = globalThis as typeof globalThis & { __demoMetaEnv?: Record<string, string | undefined> }
+    globalWithMeta.__demoMetaEnv = {
       VITE_SHELL_PORT: 'not-a-number',
     }
     const mod = await import('../src/index.ts')
@@ -76,14 +78,14 @@ describe('env helper', () => {
   })
 
   it('falls back when import.meta.env is missing', async () => {
-    const originalMeta = (import.meta as any).env
-    ;(import.meta as any).env = undefined
+    const originalMeta = (import.meta as { env?: Record<string, string | undefined> }).env
+    ;(import.meta as { env?: Record<string, string | undefined> }).env = undefined
     try {
       const mod = await import('../src/index.ts')
       const cfg = mod.__envTestUtils.readEnv({ meta: undefined, proc: {} })
       expect(cfg.apiBaseUrl).toBe('http://localhost:3050')
     } finally {
-      ;(import.meta as any).env = originalMeta
+      ;(import.meta as { env?: Record<string, string | undefined> }).env = originalMeta
     }
   })
 })

@@ -34,10 +34,11 @@ describe('createPersistentStore', () => {
     const store = createPersistentStore('denied', { ok: true })
     expect(store.getSnapshot()).toEqual({ state: { ok: true }, ticks: 0 })
 
+    const globalWithStorage = globalThis as typeof globalThis & { localStorage?: Storage }
     if (originalDescriptor) {
       Object.defineProperty(globalThis, 'localStorage', originalDescriptor)
     } else {
-      delete (globalThis as any).localStorage
+      delete globalWithStorage.localStorage
     }
   })
 

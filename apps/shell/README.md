@@ -1,73 +1,19 @@
-# React + TypeScript + Vite
+# Shell app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Host/aggregator for the micro-frontends. Loads remotes via Vite federation, wires shared providers, and renders navigation plus the Accounts and Reporting widgets.
 
-Currently, two official plugins are available:
+- Boots a shared `QueryClientProvider` from `@demo/common/queryClient` and wraps children in `SelectionProvider` and `FavoritesProvider` so stores are shared across MFEs.
+- Reads ports and API base via `@demo/common` `env()` to keep dev/preview/E2E in sync.
+- Renders links and remote components from `accounts-mfe` and `reporting-mfe`; local mocks live in `apps/shell/tests/mocks`.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Scripts
+- `pnpm dev` – run shell at configured port (default 3000).
+- `pnpm build` / `pnpm preview` – production build and preview.
+- `pnpm lint` – ESLint.
+- `pnpm test` / `pnpm test:coverage` – Vitest suites.
+- `pnpm e2e` / `pnpm e2e:open` – Cypress runner (expects shell + remotes + API running).
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Config notes
+- `vite.config.ts` pulls ports from `@demo/common` env helper.
+- Cypress config reads the same env inside `setupNodeEvents`.
+- Uses `@demo/common` API clients and stores; react/query deduped via shared provider.
