@@ -33,7 +33,7 @@ describe('Accounts App', () => {
     render(<App />)
 
     await waitFor(() =>
-      expect(screen.getByRole('heading', { name: /accounts \(accounts mfe\)/i })).toBeInTheDocument(),
+      expect(screen.getByRole('heading', { name: /accounts mfe/i })).toBeInTheDocument(),
     )
 
     expect(screen.getByRole('heading', { name: 'Retirement 401k' })).toBeInTheDocument()

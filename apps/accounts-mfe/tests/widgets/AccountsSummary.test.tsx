@@ -60,9 +60,9 @@ describe('AccountsSummary', () => {
 
     await renderWithClient()
 
-    await waitFor(() => expect(screen.getByText('Accounts (Accounts MFE)')).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByText('Accounts MFE')).toBeInTheDocument())
 
-    expect(screen.getByRole('heading', { name: /accounts \(accounts mfe\)/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /accounts mfe/i })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Retirement 401k' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Brokerage' })).toBeInTheDocument()
 

@@ -33,7 +33,7 @@ describe('Positions App', () => {
     render(<App />)
 
     await waitFor(() =>
-      expect(screen.getByRole('heading', { name: /positions \(positions mfe\)/i })).toBeInTheDocument(),
+      expect(screen.getByRole('heading', { name: /positions mfe/i })).toBeInTheDocument(),
     )
 
     expect(screen.getByText('AAPL')).toBeInTheDocument()

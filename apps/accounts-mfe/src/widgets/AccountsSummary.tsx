@@ -20,7 +20,7 @@ const AccountsSummary: React.FC = () => {
 
   return (
     <div>
-      <h2>Accounts (Accounts MFE)</h2>
+      <h2>Accounts MFE</h2>
       {accounts.map((acct: Account) => {
         const inst = institutions.find((inst: Institution) => inst.id === acct.institutionId)
         const isFav = inst ? favorites.state.ids.includes(inst.id) : false
