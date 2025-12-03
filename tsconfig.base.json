@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "preserveSymlinks": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "types": ["vite/client", "react", "react-dom", "node"],
+    "paths": {
+      "@demo/ui": ["packages/ui/src"],
+      "@demo/types": ["packages/types/src"],
+      "@demo/common": ["packages/common/src"],
+      "@demo/common/*": ["packages/common/src/*"]
+    }
+  }
+}

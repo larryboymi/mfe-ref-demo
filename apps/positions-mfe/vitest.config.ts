@@ -1,0 +1,25 @@
+import react from '@vitejs/plugin-react-swc'
+import { defineConfig } from 'vitest/config'
+import path from 'node:path'
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: {
+      '@demo/ui': path.resolve(__dirname, '../../packages/ui'),
+      '@demo/types': path.resolve(__dirname, '../../packages/types'),
+      '@demo/common': path.resolve(__dirname, '../../packages/common/src'),
+      '@demo/common/api': path.resolve(__dirname, '../../packages/common/src/api')
+    },
+  },
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['./vitest.setup.ts'],
+    include: ['tests/**/*.test.{ts,tsx}'],
+    css: false,
+    typecheck: {
+      tsconfig: './tsconfig.vitest.json',
+    },
+  },
+})
