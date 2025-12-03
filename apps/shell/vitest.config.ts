@@ -7,7 +7,7 @@ export default defineConfig({
   resolve: {
     alias: {
       'accounts/App': path.resolve(__dirname, './tests/mocks/AccountsSummary.tsx'),
-      'reporting/App': path.resolve(__dirname, './tests/mocks/PositionsTable.tsx'),
+      'positions/App': path.resolve(__dirname, './tests/mocks/PositionsTable.tsx'),
     },
   },
   test: {

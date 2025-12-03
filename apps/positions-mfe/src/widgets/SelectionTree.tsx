@@ -12,7 +12,7 @@ const SelectionTree: React.FC = () => {
       <SelectionDemo
         activeId={snapshot.state.activeId}
         ticks={snapshot.ticks}
-        values={['fast', 'reliable', 'scalable', 'simple']}
+        values={['Stock', 'Bond', 'Future', 'Alt Asset']}
         onSelect={select}
         onReset={reset}
       />

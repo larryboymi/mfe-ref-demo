@@ -39,7 +39,7 @@ const renderWithClient = async () => {
     </QueryClientProvider>,
   )
 
-  await waitFor(() => expect(screen.getByText(/positions \(reporting mfe\)/i)).toBeInTheDocument())
+  await waitFor(() => expect(screen.getByText(/positions \(positions mfe\)/i)).toBeInTheDocument())
 }
 
 afterEach(() => {
@@ -50,7 +50,7 @@ describe('PositionsTable', () => {
   it('renders positions and totals', async () => {
     await renderWithClient()
 
-    expect(screen.getByRole('heading', { name: /positions \(reporting mfe\)/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /positions \(positions mfe\)/i })).toBeInTheDocument()
 
     expect(screen.getByRole('columnheader', { name: 'Symbol' })).toBeInTheDocument()
     expect(screen.getByRole('columnheader', { name: 'Qty' })).toBeInTheDocument()

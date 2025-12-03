@@ -13,7 +13,7 @@ export default defineConfig(async () => {
         name: 'shell',
         remotes: {
           accounts: `http://localhost:${env.accountsPort}/assets/remoteEntry.js`,
-          reporting: `http://localhost:${env.reportingPort}/assets/remoteEntry.js`,
+          positions: `http://localhost:${env.positionsPort}/assets/remoteEntry.js`,
         },
         shared: ['react', 'react-dom', 'react-router-dom', '@demo/ui', '@demo/common']
       })

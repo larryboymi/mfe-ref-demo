@@ -5,7 +5,7 @@ vi.mock('../..', () => ({
     apiBaseUrl: 'http://api.test',
     shellPort: 3000,
     accountsPort: 3001,
-    reportingPort: 3002,
+    positionsPort: 3002,
   }),
 }))
 

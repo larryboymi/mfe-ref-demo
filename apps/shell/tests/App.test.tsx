@@ -10,14 +10,14 @@ describe('App shell', () => {
 
     expect(screen.getByRole('link', { name: 'Home' })).toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'Accounts' })).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'Reporting' })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'Positions' })).toBeInTheDocument()
 
     expect(screen.getByText('Shell host app')).toBeInTheDocument()
 
     await user.click(screen.getByRole('link', { name: 'Accounts' }))
     expect(await screen.findByTestId('accounts-summary-mock')).toBeInTheDocument()
 
-    await user.click(screen.getByRole('link', { name: 'Reporting' }))
+    await user.click(screen.getByRole('link', { name: 'Positions' }))
     expect(await screen.findByTestId('positions-table-mock')).toBeInTheDocument()
   })
 })

@@ -1,4 +1,4 @@
-# Reporting MFE
+# Positions MFE
 
 Micro-frontend that renders positions with totals, favorites, and a shared selection tree.
 

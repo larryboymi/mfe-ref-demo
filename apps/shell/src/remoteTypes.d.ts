@@ -3,7 +3,7 @@ declare module 'accounts/AccountsSummary' {
   export default Component
 }
 
-declare module 'reporting/PositionsTable' {
+declare module 'positions/PositionsTable' {
   const Component: React.ComponentType
   export default Component
 }

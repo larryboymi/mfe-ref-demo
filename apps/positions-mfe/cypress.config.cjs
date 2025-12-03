@@ -18,7 +18,7 @@ module.exports = defineConfig({
   e2e: {
     setupNodeEvents: async (_on, config) => {
       const env = await loadEnv()
-      const port = env?.reportingPort ?? (Number(process.env.VITE_REPORTING_PORT) || defaults.port)
+      const port = env?.positionsPort ?? (Number(process.env.VITE_POSITIONS_PORT) || defaults.port)
       config.baseUrl = `http://localhost:${port}`
       config.env = {
         ...config.env,

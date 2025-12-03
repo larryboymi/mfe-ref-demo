@@ -1,16 +1,16 @@
-# My MFE Demo
+# MFE Demo
 
 Monorepo showing a shell plus two micro-frontends backed by a small API. Shared libraries handle types, API clients, query wiring, and cross-MFE state for selections and favorites.
 
 ## Getting started
 1. Install deps: `pnpm install`
 2. Run everything: `pnpm dev:all`
-3. Open `http://localhost:3000` to load the shell; remotes (accounts 3001, reporting 3002) and API (3050) are started automatically. Click through Accounts and Reporting to see shared selections and favorites reflected across MFEs.
+3. Open `http://localhost:3000` to load the shell; remotes (accounts 3001, positions 3002) and API (3050) are started automatically. Click through Accounts and Positions to see shared selections and favorites reflected across MFEs.
 
 - **Apps**
   - `apps/shell`: host/aggregator loading remotes, bootstraps shared QueryClient and store providers.
   - `apps/accounts-mfe`: accounts UI with TanStack Query data, favorites toggle, and selection mirroring.
-  - `apps/reporting-mfe`: positions table with reference-data lookups plus shared selection tree.
+  - `apps/positions-mfe`: positions MFE with reference-data lookups plus shared selection tree.
   - `apps/api`: Express + in-memory sqlite (sql.js) exposing `/accounts`, `/positions`, `/reference-data`, `/health` with CORS enabled.
 - **Packages**
   - `packages/types`: shared types for accounts, positions, institutions, etc.
@@ -22,7 +22,7 @@ Monorepo showing a shell plus two micro-frontends backed by a small API. Shared 
   - Store state persists to `localStorage` by default and can be shared across MFEs.
 
 ## Scripts
-- `pnpm dev:shell` / `dev:api` / `preview:accounts` / `preview:reporting`: run individual apps.
+- `pnpm dev:shell` / `dev:api` / `preview:accounts` / `preview:positions`: run individual apps.
 - `pnpm dev:all`: shell + both MFEs (preview) + API together.
 - `pnpm lint`, `pnpm test`, `pnpm test:coverage`: run across the workspace.
 - `pnpm e2e`, `pnpm e2e:open`: run Cypress suites (expects dev servers running).

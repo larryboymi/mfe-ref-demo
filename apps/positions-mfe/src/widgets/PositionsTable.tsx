@@ -21,7 +21,7 @@ const PositionsTable: React.FC = () => {
 
   return (
     <div>
-      <h2>Positions (Reporting MFE)</h2>
+      <h2>Positions (Positions MFE)</h2>
       <Card title="Positions">
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>

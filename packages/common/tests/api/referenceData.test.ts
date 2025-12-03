@@ -11,7 +11,7 @@ describe('reference data client', () => {
     })
     vi.stubGlobal('fetch', fetchMock)
     vi.doMock('../../src/index.ts', () => ({
-      getEnv: () => Promise.resolve({ apiBaseUrl: 'http://api', shellPort: 0, accountsPort: 0, reportingPort: 0 }),
+      getEnv: () => Promise.resolve({ apiBaseUrl: 'http://api', shellPort: 0, accountsPort: 0, positionsPort: 0 }),
     }))
 
     const { fetchReferenceData } = await import('../../src/api/referenceData.ts')
@@ -29,7 +29,7 @@ describe('reference data client', () => {
     })
     vi.stubGlobal('fetch', fetchMock)
     vi.doMock('../../src/index.ts', () => ({
-      getEnv: () => Promise.resolve({ apiBaseUrl: 'http://api', shellPort: 0, accountsPort: 0, reportingPort: 0 }),
+      getEnv: () => Promise.resolve({ apiBaseUrl: 'http://api', shellPort: 0, accountsPort: 0, positionsPort: 0 }),
     }))
 
     const { fetchReferenceData } = await import('../../src/api/referenceData.ts')

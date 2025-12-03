@@ -13,7 +13,7 @@ export type EnvConfig = {
   apiBaseUrl: string
   shellPort: number
   accountsPort: number
-  reportingPort: number
+  positionsPort: number
 }
 
 let cachedEnv: EnvConfig | null = null
@@ -35,7 +35,7 @@ const readEnv = (overrides?: { meta?: MetaEnv; proc?: MetaEnv }): EnvConfig => {
     apiBaseUrl,
     shellPort: readNumber('VITE_SHELL_PORT', 3000),
     accountsPort: readNumber('VITE_ACCOUNTS_PORT', 3001),
-    reportingPort: readNumber('VITE_REPORTING_PORT', 3002),
+    positionsPort: readNumber('VITE_POSITIONS_PORT', 3002),
   }
 }
 

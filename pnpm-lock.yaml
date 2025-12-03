@@ -183,7 +183,7 @@ importers:
         specifier: ^1.6.0
         version: 1.6.1(@types/node@24.10.1)
 
-  apps/reporting-mfe:
+  apps/positions-mfe:
     dependencies:
       '@demo/common':
         specifier: workspace:*

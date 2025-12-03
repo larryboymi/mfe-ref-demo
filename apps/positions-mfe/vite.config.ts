@@ -10,7 +10,7 @@ export default defineConfig(async () => {
     plugins: [
       react(),
       federation({
-        name: 'reporting',
+        name: 'positions',
         filename: 'remoteEntry.js',
         exposes: {
           './PositionsTable': './src/widgets/PositionsTable.tsx',
@@ -28,7 +28,7 @@ export default defineConfig(async () => {
       }
     },
     server: {
-      port: env.reportingPort
+      port: env.positionsPort
     },
     build: {
       target: 'esnext',

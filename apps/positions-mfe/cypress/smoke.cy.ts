@@ -1,7 +1,7 @@
-describe('Reporting MFE smoke', () => {
+describe('Positions MFE smoke', () => {
   it('shows positions table and totals', () => {
     cy.visit('/')
-    cy.contains('h2', 'Positions (Reporting MFE)').should('be.visible')
+    cy.contains('h2', 'Positions (Positions MFE)').should('be.visible')
     cy.contains('th', 'Symbol').should('be.visible')
     cy.contains('td', 'AAPL').should('be.visible')
     cy.contains('td', 'TSLA').should('be.visible')

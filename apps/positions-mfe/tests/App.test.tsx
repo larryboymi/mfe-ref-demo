@@ -11,7 +11,7 @@ afterEach(() => {
   vi.restoreAllMocks()
 })
 
-describe('Reporting App', () => {
+describe('Positions App', () => {
   it('renders positions from the API', async () => {
     vi.spyOn(globalThis, 'fetch').mockImplementation(async (input: RequestInfo | URL) => {
       const url = typeof input === 'string' ? input : input.toString()
@@ -33,7 +33,7 @@ describe('Reporting App', () => {
     render(<App />)
 
     await waitFor(() =>
-      expect(screen.getByRole('heading', { name: /positions \(reporting mfe\)/i })).toBeInTheDocument(),
+      expect(screen.getByRole('heading', { name: /positions \(positions mfe\)/i })).toBeInTheDocument(),
     )
 
     expect(screen.getByText('AAPL')).toBeInTheDocument()
