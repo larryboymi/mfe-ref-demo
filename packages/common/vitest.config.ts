@@ -4,6 +4,10 @@ export default defineConfig({
   test: {
     environment: 'node',
     globals: true,
-    include: ['tests/**/*.test.ts'],
+    include: ['tests/**/*.{test,spec}.{ts,tsx}'],
+    coverage: {
+      exclude: ['tests/**/*', '**/tests/**/*'],
+      include: ['src/**/*'],
+    },
   },
 })

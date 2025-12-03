@@ -13,10 +13,10 @@ export type StoreApi<S> = {
 }
 
 const getLocalStorage = (): Storage | null => {
-  if (typeof globalThis === 'undefined') return null
-  if (!('localStorage' in globalThis)) return null
   try {
-    return globalThis.localStorage as Storage
+    const storage = globalThis?.localStorage
+    if (!storage) return null
+    return storage as Storage
   } catch {
     return null
   }
@@ -75,7 +75,7 @@ export const createPersistentStore = <S>(storageKey: string, initialState: S): S
 }
 
 export const createStoreContext = <S>(store: StoreApi<S>) => {
-  const StoreContext = React.createContext<StoreApi<S> | null>(store)
+  const StoreContext = React.createContext<StoreApi<S> | null>(null)
 
   const Provider: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     React.createElement(StoreContext.Provider, { value: store, children })
@@ -95,3 +95,5 @@ export const createStoreContext = <S>(store: StoreApi<S>) => {
 
   return { Provider, useStore, useSnapshot }
 }
+
+export const __storeTestUtils = { getLocalStorage }

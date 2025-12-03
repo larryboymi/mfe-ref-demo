@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { render, screen, waitFor } from '@testing-library/react'
 import PositionsTable from '../../src/widgets/PositionsTable'
 import { afterEach } from 'vitest'
+import { FavoritesProvider, SelectionProvider } from '@demo/common'
 
 const mockPositions = [
   { id: '1', institutionId: 'inst-1', symbol: 'AAPL', quantity: 50, value: 9500 },
@@ -30,7 +31,11 @@ const renderWithClient = async () => {
 
   render(
     <QueryClientProvider client={client}>
-      <PositionsTable />
+      <FavoritesProvider>
+        <SelectionProvider>
+          <PositionsTable />
+        </SelectionProvider>
+      </FavoritesProvider>
     </QueryClientProvider>,
   )
 
@@ -87,7 +92,11 @@ describe('PositionsTable', () => {
 
     render(
       <QueryClientProvider client={client}>
-        <PositionsTable />
+        <FavoritesProvider>
+          <SelectionProvider>
+            <PositionsTable />
+          </SelectionProvider>
+        </FavoritesProvider>
       </QueryClientProvider>,
     )
 

@@ -15,12 +15,17 @@ export type EnvConfig = {
 
 let cachedEnv: EnvConfig | null = null
 
-const readEnv = (): EnvConfig => {
-  const metaEnv =
-    typeof import.meta !== 'undefined'
-      ? ((import.meta as { env?: Record<string, string | undefined> }).env ?? {})
-      : {}
-  const procEnv = typeof process !== 'undefined' ? process.env ?? {} : {}
+const readEnv = (overrides?: {
+  meta?: Record<string, string | undefined>
+  proc?: Record<string, string | undefined>
+}): EnvConfig => {
+  const injected = overrides?.meta ?? (globalThis as any).__demoMetaEnv
+  const metaEnv = (injected ??
+    ((import.meta as { env?: Record<string, string | undefined> }).env ?? {})) as Record<
+    string,
+    string | undefined
+  >
+  const procEnv = overrides?.proc ?? ((globalThis as any).process?.env ?? {})
 
   const apiBaseUrl = metaEnv.VITE_API_URL || procEnv.VITE_API_URL || 'http://localhost:3050'
 
@@ -38,8 +43,6 @@ const readEnv = (): EnvConfig => {
   }
 }
 
-
-
 export const env = (): EnvConfig => {
   if (cachedEnv) return cachedEnv
   cachedEnv = readEnv()
@@ -47,3 +50,5 @@ export const env = (): EnvConfig => {
 }
 
 export const getEnv = async (): Promise<EnvConfig> => Promise.resolve(env())
+
+export const __envTestUtils = { readEnv }

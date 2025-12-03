@@ -3,6 +3,7 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import AccountsSummary from '../../src/widgets/AccountsSummary'
 import { afterEach } from 'vitest'
+import { FavoritesProvider, SelectionProvider } from '@demo/common'
 
 afterEach(() => {
   vi.restoreAllMocks()
@@ -42,7 +43,11 @@ const renderWithClient = async (responseOverride?: Response) => {
 
   render(
     <QueryClientProvider client={client}>
-      <AccountsSummary />
+      <FavoritesProvider>
+        <SelectionProvider>
+          <AccountsSummary />
+        </SelectionProvider>
+      </FavoritesProvider>
     </QueryClientProvider>,
   )
 

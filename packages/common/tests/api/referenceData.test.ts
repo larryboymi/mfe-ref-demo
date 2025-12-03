@@ -1,4 +1,7 @@
+/* @vitest-environment jsdom */
 import { describe, expect, it, vi } from 'vitest'
+import React from 'react'
+import { renderHook, waitFor } from '@testing-library/react'
 
 describe('reference data client', () => {
   it('fetches reference data successfully', async () => {
@@ -32,5 +35,37 @@ describe('reference data client', () => {
     const { fetchReferenceData } = await import('../../src/api/referenceData.ts')
 
     await expect(fetchReferenceData()).rejects.toThrow('Failed to fetch reference data: 500')
+  })
+
+  it('uses reference data hooks end-to-end', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ institutions: [{ id: '1', name: 'Bank' }] }),
+    })
+    vi.stubGlobal('fetch', fetchMock)
+    const { QueryClient, QueryClientProvider } = await import('@tanstack/react-query')
+    const { useReferenceData, useInstitutionById } = await import('../../src/api/referenceData.ts')
+    const client = new QueryClient()
+    const wrapper = ({ children }: { children: React.ReactNode }) =>
+      React.createElement(QueryClientProvider, { client, children })
+
+    const { result: refResult } = renderHook(() => useReferenceData(), { wrapper })
+    const { result: instResult } = renderHook(() => useInstitutionById('1'), { wrapper })
+
+    await waitFor(() => expect(refResult.current.data?.institutions).toHaveLength(1))
+    await waitFor(() => expect(instResult.current?.name).toBe('Bank'))
+  })
+
+  it('prefetches with provided queryClient', async () => {
+    const prefetchQuery = vi.fn()
+    const { prefetchReferenceData, referenceDataQueryKey, fetchReferenceData } = await import(
+      '../../src/api/referenceData.ts'
+    )
+    await prefetchReferenceData({ prefetchQuery } as any)
+    expect(prefetchQuery).toHaveBeenCalledWith({
+      queryKey: referenceDataQueryKey,
+      queryFn: fetchReferenceData,
+      staleTime: 60 * 60 * 1000,
+    })
   })
 })
