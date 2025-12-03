@@ -10,3 +10,5 @@ export const Card: React.FC<{ title: string; children?: React.ReactNode }> = ({ 
 export const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = (props) => (
   <button style={{ padding: "0.4rem 0.8rem", borderRadius: 4, cursor: "pointer" }} {...props} />
 )
+
+export * from "./SelectionDemo"
