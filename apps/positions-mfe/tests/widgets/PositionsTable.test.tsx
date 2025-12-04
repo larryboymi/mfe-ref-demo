@@ -1,8 +1,8 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClientProvider } from '@tanstack/react-query'
 import { render, screen, waitFor } from '@testing-library/react'
 import PositionsTable from '../../src/widgets/PositionsTable'
 import { afterEach } from 'vitest'
-import { FavoritesProvider, SelectionProvider } from '@demo/common'
+import { FavoritesProvider, SelectionProvider, createQueryClient } from '@demo/common'
 
 const mockPositions = [
   { id: '1', institutionId: 'inst-1', symbol: 'AAPL', quantity: 50, value: 9500 },
@@ -10,7 +10,7 @@ const mockPositions = [
 ]
 
 const renderWithClient = async () => {
-  const client = new QueryClient()
+  const client = createQueryClient()
   const fetchMock = vi.spyOn(globalThis, 'fetch')
   fetchMock.mockImplementation(async (input: RequestInfo | URL) => {
     const url = typeof input === 'string' ? input : input.toString()
@@ -64,13 +64,8 @@ describe('PositionsTable', () => {
   })
 
   it('shows an error message when loading fails', async () => {
-    const client = new QueryClient({
-      defaultOptions: {
-        queries: {
-          retry: false,
-        },
-      },
-    })
+    const client = createQueryClient()
+    client.setDefaultOptions({ queries: { retry: false, queryFn: client.getDefaultOptions().queries?.queryFn } })
     const fetchMock = vi.spyOn(globalThis, 'fetch')
     fetchMock.mockImplementation(async (input: RequestInfo | URL) => {
       const url = typeof input === 'string' ? input : input.toString()

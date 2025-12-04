@@ -1,6 +1,6 @@
 import { afterEach } from 'vitest'
 
-vi.mock('../..', () => ({
+vi.mock('../../src/env.ts', () => ({
   getEnv: vi.fn().mockResolvedValue({
     apiBaseUrl: 'http://api.test',
     shellPort: 3000,
@@ -23,7 +23,7 @@ describe('fetchPositions', () => {
     const { fetchPositions } = await import('../../src/api/positions')
     await fetchPositions()
 
-    expect(fetchMock).toHaveBeenCalledWith('http://api.test/positions')
+    expect(fetchMock).toHaveBeenCalledWith('http://api.test/positions', { method: 'GET', signal: undefined })
   })
 
   it('throws on a non-ok response', async () => {
@@ -35,6 +35,6 @@ describe('fetchPositions', () => {
 
     const { fetchPositions } = await import('../../src/api/positions')
 
-    await expect(fetchPositions()).rejects.toThrow('Failed to fetch positions: 500')
+    await expect(fetchPositions()).rejects.toThrow('Request for GET /positions failed: 500')
   })
 })

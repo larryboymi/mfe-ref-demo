@@ -31,6 +31,6 @@
     "vitest": "^4.0.15"
   },
   "dependencies": {
-    "react-router-dom": "^7.10.0"
+    "react-router-dom": "^7.10.1"
   }
 }

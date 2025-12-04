@@ -1,23 +1,16 @@
-import { getEnv } from '../index.ts'
 import type { ReferenceData, InstitutionId, Institution } from '@demo/types'
 import { useQuery, QueryClient } from '@tanstack/react-query'
+import type { ApiQueryKey } from '../queryClient.ts'
+import { fetchFromApi } from '../queryClient.ts'
 
-export const referenceDataQueryKey = ['referenceData'] as const
+export const referenceDataQueryKey = ['GET', '/reference-data'] as const satisfies ApiQueryKey
 
-export const fetchReferenceData = async (): Promise<ReferenceData> => {
-  const { apiBaseUrl } = await getEnv()
-  const res = await fetch(`${apiBaseUrl}/reference-data`)
-  if (!res.ok) {
-    throw new Error(`Failed to fetch reference data: ${res.status}`)
-  }
-  const data = (await res.json()) as ReferenceData
-  return data
-}
+export const fetchReferenceData = async (): Promise<ReferenceData> =>
+  fetchFromApi<ReferenceData>(referenceDataQueryKey)
 
 export const useReferenceData = () =>
   useQuery<ReferenceData>({
     queryKey: referenceDataQueryKey,
-    queryFn: fetchReferenceData,
     staleTime: 60 * 60 * 1000,
   })
 
@@ -39,7 +32,6 @@ export const useInstitutionById = (id: InstitutionId | null | undefined) => {
 export const prefetchReferenceData = async (queryClient: QueryClient) => {
   await queryClient.prefetchQuery({
     queryKey: referenceDataQueryKey,
-    queryFn: fetchReferenceData,
     staleTime: 60 * 60 * 1000,
   })
 }
