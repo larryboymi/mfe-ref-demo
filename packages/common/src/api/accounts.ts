@@ -1,21 +1,13 @@
-import { getEnv } from '../index.ts'
 import { useQuery } from '@tanstack/react-query'
 import type { Account } from '@demo/types'
+import type { ApiQueryKey } from '../queryClient.ts'
+import { fetchFromApi } from '../queryClient.ts'
 
-export const accountsQueryKey = ['accounts'] as const
+export const accountsQueryKey = ['GET', '/accounts'] as const satisfies ApiQueryKey
 
-export const fetchAccounts = async (): Promise<Account[]> => {
-  const { apiBaseUrl } = await getEnv()
-  const res = await fetch(`${apiBaseUrl}/accounts`)
-  if (!res.ok) {
-    throw new Error(`Failed to fetch accounts: ${res.status}`)
-  }
-  const data = (await res.json()) as Account[]
-  return data
-}
+export const fetchAccounts = async (): Promise<Account[]> => fetchFromApi<Account[]>(accountsQueryKey)
 
 export const useAccounts = () =>
   useQuery<Account[]>({
     queryKey: accountsQueryKey,
-    queryFn: fetchAccounts,
   })

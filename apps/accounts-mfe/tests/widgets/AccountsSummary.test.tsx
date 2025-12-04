@@ -1,9 +1,9 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClientProvider } from '@tanstack/react-query'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import AccountsSummary from '../../src/widgets/AccountsSummary'
 import { afterEach } from 'vitest'
-import { FavoritesProvider, SelectionProvider } from '@demo/common'
+import { FavoritesProvider, SelectionProvider, createQueryClient } from '@demo/common'
 
 afterEach(() => {
   vi.restoreAllMocks()
@@ -16,9 +16,8 @@ const mockAccounts: Account[] = [
 ]
 
 const renderWithClient = async (responseOverride?: Response) => {
-  const client = new QueryClient({
-    defaultOptions: { queries: { retry: false } },
-  })
+  const client = createQueryClient()
+  client.setDefaultOptions({ queries: { retry: false, queryFn: client.getDefaultOptions().queries?.queryFn } })
 
   const fetchMock = vi.spyOn(globalThis, 'fetch')
   fetchMock.mockImplementation(async (input: RequestInfo | URL) => {

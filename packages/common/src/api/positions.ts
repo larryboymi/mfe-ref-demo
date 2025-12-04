@@ -1,21 +1,14 @@
-import { getEnv } from '../index.ts'
 import { useQuery } from '@tanstack/react-query'
 import type { Position } from '@demo/types'
+import { fetchFromApi } from '../queryClient.ts'
+import type { ApiQueryKey } from '../queryClient.ts'
 
-export const positionsQueryKey = ['positions'] as const
+export const positionsQueryKey = ['GET', '/positions'] as const satisfies ApiQueryKey
 
-export const fetchPositions = async (): Promise<Position[]> => {
-  const { apiBaseUrl } = await getEnv()
-  const res = await fetch(`${apiBaseUrl}/positions`)
-  if (!res.ok) {
-    throw new Error(`Failed to fetch positions: ${res.status}`)
-  }
-  const data = (await res.json()) as Position[]
-  return data
-}
+export const fetchPositions = async (): Promise<Position[]> =>
+  fetchFromApi<Position[]>(positionsQueryKey)
 
 export const usePositions = () =>
   useQuery<Position[]>({
     queryKey: positionsQueryKey,
-    queryFn: fetchPositions,
   })
