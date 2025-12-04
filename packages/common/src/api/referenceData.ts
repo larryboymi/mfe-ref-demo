@@ -1,12 +1,8 @@
 import type { ReferenceData, InstitutionId, Institution } from '@demo/types'
 import { useQuery, QueryClient } from '@tanstack/react-query'
 import type { ApiQueryKey } from '../queryClient.ts'
-import { fetchFromApi } from '../queryClient.ts'
 
 export const referenceDataQueryKey = ['GET', '/reference-data'] as const satisfies ApiQueryKey
-
-export const fetchReferenceData = async (): Promise<ReferenceData> =>
-  fetchFromApi<ReferenceData>(referenceDataQueryKey)
 
 export const useReferenceData = () =>
   useQuery<ReferenceData>({
